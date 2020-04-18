@@ -1,0 +1,209 @@
+﻿@model AlMajd.Models.TravellerInformation
+@{
+    ViewBag.Title = "TravellersIndex";
+}
+
+
+
+
+
+
+<div class="container" style="width:40%;margin-top:2%">
+
+    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Open Modal</a>
+
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h3 class="modal-title">Technotips MVC</h3>
+
+                </div>
+                <div class="modal-body">
+
+                    <form id="myForm" method="post">
+
+                        <div class="form-horizontal">
+                            <h4>TravellerInformation</h4>
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.travellerIdentify, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.travellerIdentify, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.travellerIdentify, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.fName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.fName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.fName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.lName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.lName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.lName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.numberOfTravellers, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.numberOfTravellers, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.numberOfTravellers, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.numberDarebeh, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.numberDarebeh, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.numberDarebeh, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            @if (ViewBag.ServiseList != null)
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.serviceId, "serviceId", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(model => model.serviceId, ViewBag.ServiseList as SelectList, "select", htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.serviceId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.dateOfTravel, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.dateOfTravel, new { htmlAttributes = new { @type = "date", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.dateOfTravel, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            @*<div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Create" class="btn btn-default" />
+                                    </div>
+                                </div>*@
+                        </div>
+
+                        @*@Html.DropDownListFor(model => model.DepartmentId, ViewBag.DepartmentList as SelectList, "--select--", new { @class = "form-control" })
+
+                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Name" })
+
+                            @Html.TextBoxFor(model => model.Address, new { @class = "form-control", @placeholder = "Address" })
+
+                            @Html.TextBoxFor(model => model.SiteName, new { @class = "form-control", @placeholder = "SiteName" })*@
+                    </form>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                    <button type="submit" value="Submit" class="btn btn-success" id="btnSubmit">Submit</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<table class="table table-responsive table-striped">
+    <thead>
+        <tr>
+            <th> Travel identify</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Service Type</th>
+            <th>number of travellers</th>
+            <th>number of darebeh</th>
+            <th>date of travel</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (ViewBag.listTravllers != null)
+        {
+            foreach (var x in ViewBag.listTravllers)
+            {
+
+                <tr>
+                    <td>@x.travellerIdentify</td>
+                    <td>@x.fName</td>
+                    <td>@x.lName</td>
+                    <td>@x.ServiceType.serviceName</td>
+                    <td>@x.numberOfTravellers</td>
+                    <td>@x.numberDarebeh</td>
+                    <td>@x.dateOfTravel</td>
+
+
+                </tr>
+
+
+
+
+
+
+            }
+
+
+
+
+
+
+
+        }
+
+    </tbody>
+
+</table>
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+
+<script>
+
+    $(document).ready(function () {
+
+
+        $("#btnSubmit").click(function () {
+
+
+            var myformdata = $("#myForm").serialize();
+
+            $.ajax({
+
+                type: "POST",
+                url: "/Traveller/CreateNewTravel",
+                data: myformdata,
+                success: function (response) {
+                    if (response) {
+
+                        $("#myModal").modal("hide");
+                        window.location.href = "/Home/TravellersIndex";
+                    }
+
+                }
+
+            })
+        })
+
+    })
+
+
+</script>
